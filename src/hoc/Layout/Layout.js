@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+/* eslint-disable react-hooks/rules-of-hooks */
+
+import React, { useState } from 'react';
 import Aux from '../Aux/Aux';
 import styles from './Layout.module.css'
 import { connect } from 'react-redux'
@@ -7,45 +9,39 @@ import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer'
 
 
 
-class Layout extends Component {
+const layout = props => {
 
-    state = {
-        showSideDrawer: false
+   const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
+
+    const sideDrawerClosedHandler = () => {
+        setSideDrawerIsVisible(false)
     }
 
-    sideDrawerClosedHandler = () => {
-        this.setState({showSideDrawer: false})
+    const sideDrawerOpenHandler = () =>{
+        setSideDrawerIsVisible(true)
     }
 
-    sideDrawerOpenHandler = () =>{
-        this.setState({showSideDrawer: true})
+    const sideDrawerToggleHandler = () => {
+        setSideDrawerIsVisible(!sideDrawerIsVisible)
     }
 
-    sideDrawerToggleHandler = () => {
-        this.setState((prevState) => {
-            return {showSideDrawer: !prevState.showSideDrawer}
-        })
-    }
-
-    render () {
         return (
             <Aux>
                 <Toolbar 
-                    isAuth = {this.props.isAuthenticated}
-                drawerToggleClicked={this.sideDrawerToggleHandler}
+                    isAuth = {props.isAuthenticated}
+                drawerToggleClicked={sideDrawerToggleHandler}
                 
-                closeSideDrawer={this.sideDrawerClosedHandler}></Toolbar>
+                closeSideDrawer={sideDrawerClosedHandler}></Toolbar>
                 <SideDrawer 
-                    isAuth = {this.props.isAuthenticated}
-                    open={this.state.showSideDrawer}
-                    closed = {this.sideDrawerClosedHandler}/>
+                    isAuth = {props.isAuthenticated}
+                    open={sideDrawerIsVisible}
+                    closed = {sideDrawerClosedHandler}/>
                 <div>Toolbar, SideDrawer, Backdrop </div>
                 <main className={styles.Content}>
-                    { this.props.children}
+                    { props.children}
                 </main>
             </Aux>
         )
-    }
 }
 
 const mapStateToProps = state => {
@@ -54,4 +50,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Layout);
+export default connect(mapStateToProps)(layout);
