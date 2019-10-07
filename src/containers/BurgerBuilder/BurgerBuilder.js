@@ -11,13 +11,15 @@ import * as actions from '../../store/actions/index'
 import { connect } from 'react-redux'
 /* eslint-disable react-hooks/rules-of-hooks */
 
-const burgerBuilder = props => {
+const BurgerBuilder = props => {
 
     const [purchasing, setPurchasing] = useState(false)
 
+    const { onInitIngredients } = props;
+
     useEffect(()=>{
-        props.onInitIngredients()
-    },[])
+        onInitIngredients()
+    },[onInitIngredients])
   
     const updatePurchaseState = (ingredients) =>{
         const sum = Object.keys(ingredients)
@@ -119,4 +121,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(burgerBuilder,axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder,axios));

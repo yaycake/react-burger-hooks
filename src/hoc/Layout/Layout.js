@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-
 import React, { useState } from 'react';
 import Aux from '../Aux/Aux';
 import styles from './Layout.module.css'
@@ -7,9 +5,7 @@ import { connect } from 'react-redux'
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer'
 
-
-
-const layout = props => {
+const Layout = props => {
 
    const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
 
@@ -17,9 +13,9 @@ const layout = props => {
         setSideDrawerIsVisible(false)
     }
 
-    const sideDrawerOpenHandler = () =>{
-        setSideDrawerIsVisible(true)
-    }
+    // const sideDrawerOpenHandler = () =>{
+    //     setSideDrawerIsVisible(true)
+    // }
 
     const sideDrawerToggleHandler = () => {
         setSideDrawerIsVisible(!sideDrawerIsVisible)
@@ -50,4 +46,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(layout);
+export default connect(mapStateToProps)(Layout);

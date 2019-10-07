@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, Suspense } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import Layout from './hoc/Layout/Layout';
@@ -18,11 +17,12 @@ const Auth = React.lazy( () => {
   return import ('./containers/Auth/Auth')
 })
 
-const app = props =>  {
+const App = props =>  {
+  const { onTryAutoSignup } = props;
 
   useEffect(()=>{
-    props.onTryAutoSignup();
-  }, [props]);
+    onTryAutoSignup();
+  }, [onTryAutoSignup]);
 
     let routes = (
       <Switch>
@@ -65,4 +65,4 @@ const mapDispatchToProps = dispatch => {
     onTryAutoSignup: () => dispatch (actions.authCheckState())
   }
 }
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(app));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

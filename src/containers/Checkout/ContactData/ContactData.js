@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Button from '../../../components/UI/Button/Button'
 import styles from './ContactData.module.css'
 import axios from '../../../axios-orders'
@@ -12,6 +12,8 @@ import {updateObject, checkValidity} from '../../../shared/utility'
 const contactData = props => {
 
     const [orderForm, setOrderForm ] = useState({
+
+    
       
         name: {
             elementType: 'input',
@@ -105,21 +107,16 @@ const contactData = props => {
            valid: checkValidity(event.target.value, orderForm[inputIdentifier].validation), 
            touched: true
        });
-
        const updatedOrderForm = updateObject(orderForm, {
            [inputIdentifier]: updatedFormElement
        })
-
        let formIsValid= true; 
-
        for (let inputIdentifier in updatedOrderForm) {
            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid
        }
 
        setOrderForm(updatedOrderForm);
-
        setFormIsValid(formIsValid)
-
     }
 
     const orderHandler = (event) => {
@@ -137,11 +134,9 @@ const contactData = props => {
             userId: props.userId
         };
 
-      props.onOrderBurger(order, props.token);
-
+        props.onOrderBurger(order, props.token);
         props.history.push('/')
     }
-
  
         const formElementsArray = [];
         for (let key in orderForm) {

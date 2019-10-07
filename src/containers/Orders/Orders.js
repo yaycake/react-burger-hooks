@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect } from 'react'
+
 import Order from '../../components/Order/Order'
 import axios from '../../axios-orders'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
@@ -9,12 +9,14 @@ import {connect} from 'react-redux';
 
 import Spinner from '../../components/UI/Spinner/Spinner'
 
-const orders = props => {
-    useEffect(()=> {
-        props.onFetchOrders(props.token, props.userId)
-    }, [])
+const Orders = props => {
 
-  
+    const { token, userId, onFetchOrders } = props; 
+
+    useEffect(()=> {
+        onFetchOrders(token, userId)
+    }, [token, userId, onFetchOrders])
+
         let orders = <Spinner />
         if (!props.loading) {
             orders = ( 
@@ -49,4 +51,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(orders, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios));

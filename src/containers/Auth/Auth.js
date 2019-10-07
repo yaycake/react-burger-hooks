@@ -10,7 +10,7 @@ import {updateObject, checkValidity} from '../../shared/utility'
 import { Redirect } from 'react-router-dom'
 /* eslint-disable react-hooks/rules-of-hooks */
 
-const auth = props => {
+const Auth = props => {
 
     const [authForm, setAuthForm] = useState(
         {email: {
@@ -44,11 +44,13 @@ const auth = props => {
     )
     const [isSignup, setIsSignup ]= useState(true)
 
+    const { buildingBurger, authRedirectPath, onSetAuthRedirectPath } = props;
+
     useEffect(()=> {
-        if (!props.buildingBurger && props.authRedirectPath !== '/'){
-            props.onSetAuthRedirectPath()
+        if (!buildingBurger && authRedirectPath !== '/'){
+            onSetAuthRedirectPath()
         }
-    }, [])
+    }, [buildingBurger, authRedirectPath, onSetAuthRedirectPath])
 
 
     const inputChangedHandler = (event, controlName) => {
@@ -141,4 +143,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

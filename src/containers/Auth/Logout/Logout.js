@@ -4,17 +4,17 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
 /* eslint-disable react-hooks/rules-of-hooks */
 
-const logout = props => {
+const Logout = props => {
+
+    const { onLogout } = props;
     
     useEffect(()=> {
-        props.onLogout()
-    },[])
+        onLogout()
+    },[onLogout])
 
- 
     return (
             <Redirect to="/"/>
     )
-    
 }
 
 const mapDispatchToProps = dispatch => {
@@ -23,4 +23,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(logout)
+export default connect(null, mapDispatchToProps)(Logout)
